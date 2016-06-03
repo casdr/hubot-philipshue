@@ -188,6 +188,13 @@ module.exports = (robot) ->
       return handleError msg, err if err
       robot.logger.debug status
 
+  robot.respond /hue @(\w+) alert/i, (msg) ->
+    [group] = msg.match[1]
+    state = lightState.create.alertShort()
+    api.setGroupLightState group, state, (err, status) ->
+      return handleError msg, err if err
+      robot.logger.debug status
+
   robot.respond /hue turn light (\d+) (on|off)/i, (msg) ->
     [light, state] = msg.match[1..2]
     msg.send "Setting light #{light} to #{state}"
