@@ -176,7 +176,7 @@ module.exports = (robot) ->
         robot.logger.debug status
 
   robot.respond /hue @(\w+) (on|off)/i, (msg) ->
-    [group_name, state] = msg.match[1..2]
+    [group, state] = msg.match[1..2]
     msg.send "Setting light group #{group} to #{state}"
     state = lightState.create().on(state=='on')
     api.setGroupLightState group, state, (err, status) ->
