@@ -172,8 +172,13 @@ module.exports = (robot) ->
       state = lightState.create().on(true).ct(ct)
       api.setLightState light, state, (err, status) ->
         return handleError msg, err if err
-        console.log status
         robot.logger.debug status
+
+  robot.hear /standup$/, (msg) ->
+    alertState = lightState.create().alertShort()
+    api.setGroupLightState 1, alertState, (err, status) ->
+      return handleError msg, err if err
+      robot.logger.debug status
 
   robot.respond /hue @(\w+) (on|off)/i, (msg) ->
     [group, state] = msg.match[1..2]
