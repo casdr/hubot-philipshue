@@ -1,0 +1,63 @@
+{
+  "name": "hubot-philipshue",
+  "description": "Control your Philips Hue Lights from HUBOT! BAM, easy candy for the kids",
+  "version": "0.0.9",
+  "author": {
+    "name": "Chris Blazek",
+    "email": "chris.blazek@gmail.com",
+    "url": "http://chrisblazek.me"
+  },
+  "license": "MIT",
+  "keywords": [
+    "hubot",
+    "philips-hue",
+    "philipshue",
+    "philips",
+    "hue"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kingbin/hubot-philipshue"
+  },
+  "bugs": {
+    "url": "https://github.com/kingbin/hubot-philipshue/issues"
+  },
+  "dependencies": {
+    "coffee-script": "~1.6",
+    "node-hue-api": "^1.0.5"
+  },
+  "devDependencies": {
+    "mocha": "~1.14.0",
+    "chai": "~1.8.1",
+    "sinon-chai": "~2.4.0",
+    "sinon": "~1.7.3"
+  },
+  "main": "index.coffee",
+  "scripts": {
+    "postinstall": "",
+    "test": "script/test"
+  },
+  "gitHead": "14549be76fca09b753172135e6c1b7dbc79dc763",
+  "homepage": "https://github.com/kingbin/hubot-philipshue",
+  "_id": "hubot-philipshue@0.0.9",
+  "_shasum": "3a7a0a5a0ffab8b9fbda9c171e6ec0c8812fb2d6",
+  "_from": "hubot-philipshue@latest",
+  "_npmVersion": "2.7.5",
+  "_nodeVersion": "0.12.2",
+  "_npmUser": {
+    "name": "kingbin",
+    "email": "chris.blazek@gmail.com"
+  },
+  "dist": {
+    "shasum": "3a7a0a5a0ffab8b9fbda9c171e6ec0c8812fb2d6",
+    "tarball": "http://registry.npmjs.org/hubot-philipshue/-/hubot-philipshue-0.0.9.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "kingbin",
+      "email": "chris.blazek@gmail.com"
+    }
+  ],
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/hubot-philipshue/-/hubot-philipshue-0.0.9.tgz"
+}
