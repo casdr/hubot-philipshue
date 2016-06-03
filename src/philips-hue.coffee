@@ -177,13 +177,11 @@ module.exports = (robot) ->
 
   robot.respond /hue @(\w+) (on|off)/i, (msg) ->
     [group_name, state] = msg.match[1..2]
-    groupMap group_name, (group) ->
-      return msg.send "Could not find '#{group_name}' in list of groups" unless group
-      msg.send "Setting light group #{group} to #{state}"
-      state = lightState.create().on(state=='on')
-      api.setGroupLightState group, state, (err, status) ->
-        return handleError msg, err if err
-        robot.logger.debug status
+    msg.send "Setting light group #{group} to #{state}"
+    state = lightState.create().on(state=='on')
+    api.setGroupLightState group, state, (err, status) ->
+      return handleError msg, err if err
+      robot.logger.debug status
 
   robot.respond /hue turn light (\d+) (on|off)/i, (msg) ->
     [light, state] = msg.match[1..2]
