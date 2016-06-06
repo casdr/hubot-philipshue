@@ -174,7 +174,7 @@ module.exports = (robot) ->
         return handleError msg, err if err
         robot.logger.debug status
 
-  robot.hear /standup$/, (msg) ->
+  robot.hear /:standup:/, (msg) ->
     alertState = lightState.create().alertShort()
     api.setGroupLightState 1, alertState, (err, status) ->
       return handleError msg, err if err
