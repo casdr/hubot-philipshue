@@ -43,11 +43,15 @@
 #   hubot hue group <group name>=[<comma separated list of light indexes>]
 #   hubot hue ls groups - lists the groups of lights
 #   hubot hue rm group <group name> - remove grouping of lights named <group name>
-#   hubot hue @<group name> off - turn all lights in <group name> off
-#   hubot hue @<group name> on - turn all lights in <group name> on
-#   hubot hue @<group name> hsb=(<hue>,<sat>,<bri>) - set hsb value for all lights in group
-#   hubot hue @<group name> xy=(<x>,<y>) - set x, y value for all lights in group
-#   hubot hue @<group name> ct=<color temp> - set color temp for all lights in group
+#   hubot hue @<group id> off - turn all lights in <group name> off
+#   hubot hue @<group id> on - turn all lights in <group name> on
+#   hubot hue @<group id> hsb=(<hue>,<sat>,<bri>) - set hsb value for all lights in group
+#   hubot hue @<group id> xy=(<x>,<y>) - set x, y value for all lights in group
+#   hubot hue @<group id> ct=<color temp> - set color temp for all lights in group
+#   hubot hue @<group id> white <white temp> - set to white in temp (150 - 500) (also stops the loop)
+#   hubot hue @<group id> loop - loop through colors
+#   :standup: - alert the lights in group 1
+#   :standupbg: - alert the lights in group 4
 #
 # Notes:
 #
@@ -164,6 +168,31 @@ module.exports = (robot) ->
       api.setGroupLightState group, state, (err, status) ->
         return handleError msg, err if err
         robot.logger.debug status
+
+  robot.respond /hue @(\d+) loop/i, (msg) ->
+    group = msg.match[1]
+    msg.send "Setting group #{group} to loop"
+    state = lightState.create().white(500, 100)
+    api.setGroupLightState group, state, (err, status) ->
+      return handleError msg, err if err
+      robot.logger.debug status
+      state = lightState.create().effect("colorloop")
+      api.setGroupLightState group, state, (err, status) ->
+        return handleError msg, err if err
+        robot.logger.debug status
+
+  robot.respond /hue @(\d+) white (\d+)/i, (msg) ->
+    [group, temp] = msg.match[1..2]
+    msg.send "Setting group #{group} to white #{temp}"
+    state = lightState.create().effect("none")
+    api.setGroupLightState group, state, (err, status) ->
+      return handleError msg, err if err
+      robot.logger.debug status
+      state = lightState.create().white(temp, 80)
+      api.setGroupLightState group, state, (err, status) ->
+        return handleError msg, err if err
+        robot.logger.debug status
+
 
   robot.respond /hue ct light (.*) (\d{3})/i, (msg) ->
     [lights,ct] = msg.match[1..2]
