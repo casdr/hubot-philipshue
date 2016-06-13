@@ -180,6 +180,12 @@ module.exports = (robot) ->
       return handleError msg, err if err
       robot.logger.debug status
 
+  robot.hear /:standupbg:/, (msg) ->
+    alertState = lightState.create().alertShort()
+    api.setGroupLightState 4, alertState, (err, status) ->
+      return handleError msg, err if err
+      robot.logger.debug status
+
   robot.respond /hue @(\w+) (on|off)/i, (msg) ->
     [group, state] = msg.match[1..2]
     msg.send "Setting light group #{group} to #{state}"
